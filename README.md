@@ -93,5 +93,6 @@ aptos stake create-staking-contract \
 # Genesis balances (defined in `balances.yaml`) do not seem to be respected / used
 
 # For example, this returns 0 balance
+# Relevant docs: https://aptos.dev/en/network/nodes/validator-node/connect-nodes/connect-to-aptos-network
 aptos account list --profile mainnet-operator-aws1
 ```
