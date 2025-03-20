@@ -1,0 +1,55 @@
+base:
+  role: "full_node"
+  data_dir: "/opt/aptos/data/fullnode"
+  waypoint:
+    from_file: "/opt/aptos/node-configs/mainnet/waypoint.txt"
+
+execution:
+  genesis_file_location: "/opt/aptos/node-configs/mainnet/genesis.blob"
+
+storage:
+  rocksdb_configs:
+    enable_storage_sharding: true
+  backup_service_address: "127.0.0.1:6190"
+
+full_node_networks:
+- network_id:
+    private: "vfn"
+  listen_address: "/ip4/0.0.0.0/tcp/6182"
+  seeds:
+    00000000000000000000000000000000d58bc7bb154b38039bc9096ce04e1237:
+      addresses:
+      # this must be the ip address of the validator node
+      - "/ip4/<VALIPADDR>/tcp/6181/noise-ik/f0274c2774519281a8332d0bb9d8101bd58bc7bb154b38039bc9096ce04e1237/handshake/0"
+      role: "Validator"
+
+- network_id: "public"
+  discovery_method: "onchain"
+  listen_address: "/ip4/0.0.0.0/tcp/6183"
+  max_inbound_connections: 100
+  seeds:
+    d58bc7bb154b38039bc9096ce04e1237:
+      addresses:
+      - "/ip4/<VALIPADDR>/tcp/6182/noise-ik/f0274c2774519281a8332d0bb9d8101bd58bc7bb154b38039bc9096ce04e1237/handshake/0"
+      role: "Upstream"
+  identity:
+    type: "from_file"
+    path: "/opt/aptos/node-configs/keys/<KEYSDIR>/validator-full-node-identity.yaml"
+
+admin_service:
+  enabled: true
+  port: 9103
+  address: "0.0.0.0"
+  authentication_configs: [
+    {
+      passcode_sha256: "1234"
+    }
+  ]
+
+inspection_service:
+  address: "0.0.0.0"
+  port: 9104
+
+api:
+  enabled: true
+  address: "0.0.0.0:7321"

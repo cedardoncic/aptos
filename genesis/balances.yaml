@@ -1,0 +1,4 @@
+---
+# Distribute initial supply between validators (50-50 split)
+- "994a745b3700fcc728bcaf94936b8aedb5eceee0567b6264451818be3ac96ef6": 50000000000000  # Kingfisher Validator (50%)
+- "d09dc6ff7cf319b71e74c2bdba34d5fd11c0ba284407a377c85cb8b004741f46": 50000000000000  # Gitpod Validator (50%)

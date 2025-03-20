@@ -1,0 +1,78 @@
+---
+chain_id: 1234
+
+users:
+  - aws1
+  # - aws2 
+
+epoch_duration_secs: 7200
+
+# Minimum stake to be in the validator set
+min_stake: 1000000000000
+# Maximum stake to be in the validator set
+max_stake: 50000000000000
+# Minimum number of votes to consider a proposal valid.
+min_voting_threshold: 1000000000000
+
+# Minimum number of seconds to lockup staked coins
+recurring_lockup_duration_secs: 86400
+# Required amount of stake to create proposals.
+required_proposer_stake: 1000000000000
+# Percentage of stake given out as rewards a year (0-100%).
+rewards_apy_percentage: 10
+# Voting duration for a proposal in seconds.
+voting_duration_secs: 43200
+# % of current epoch's total voting power that can be added in this epoch.
+voting_power_increase_limit: 20
+# Total supply of coins
+total_supply: 100000000000000
+
+employee_vesting_start: 1713936000
+employee_vesting_period_duration: 86400
+
+on_chain_consensus_config:
+  V3:
+    alg:
+      JolteonV2:
+        main:
+          decoupled_execution: true
+          back_pressure_limit: 10
+          exclude_round: 40
+          proposer_election_type:
+            leader_reputation:
+              proposer_and_voter_v2:
+                active_weight: 1000
+                inactive_weight: 10
+                failed_weight: 1
+                failure_threshold_percent: 10
+                proposer_window_num_validators_multiplier: 10
+                voter_window_num_validators_multiplier: 1
+                weight_by_voting_power: true
+                use_history_from_previous_epoch_max_count: 5
+          max_failed_authors_to_store: 10
+        quorum_store_enabled: true
+        order_vote_enabled: false
+    vtxn: V0
+
+on_chain_execution_config:
+  V4:
+    transaction_shuffler_type:
+      use_case_aware:
+        sender_spread_factor: 32
+        platform_use_case_spread_factor: 0
+        user_use_case_spread_factor: 4
+    block_gas_limit_type:
+      complex_limit_v1:
+        effective_block_gas_limit: 30000
+        execution_gas_effective_multiplier: 1
+        io_gas_effective_multiplier: 1
+        conflict_penalty_window: 9
+        use_granular_resource_group_conflicts: false
+        use_module_publishing_block_conflict: true
+        block_output_limit: 5242880
+        include_user_txn_size_in_block_output: true
+        add_block_limit_outcome_onchain: true
+    transaction_deduper_type: txn_hash_and_authenticator_v1
+jwk_consensus_config_override: ~
+initial_jwks: []
+keyless_groth16_vk_override: ~
